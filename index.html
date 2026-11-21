@@ -1,53 +1,55 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self'; connect-src 'none'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
-<title>Conferidor de Anexos de Proposta</title>
-<link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self'; connect-src 'none'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Conferidor de Anexos de Proposta</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
 </head>
-<body>
-<a class="skip" href="#editor">Ir para a ferramenta</a>
-<main>
-  <header><p class="brand"><span></span> LOFRANO <small>Laboratório de software</small></p>
-    <div class="hero"><p class="sector">Licitações e compras</p><h1>Conferidor de Anexos de Proposta</h1><p>Compare os arquivos preparados com a lista esperada e confira ausências, extras e duplicatas por conteúdo.</p></div>
-  </header>
-  <div class="workspace">
-    <section class="panel">
-      <h2>Dados de entrada</h2>
-      <p class="help" id="instructions">Informe os nomes esperados em expected. Em files, cada arquivo tem name e pode ter sha256. A seleção de arquivos preenche files localmente.</p>
-      <label for="files">Selecionar arquivos para calcular SHA-256</label><input id="files" type="file" multiple>
-      <label for="editor">Dados em JSON</label>
-      <textarea id="editor" spellcheck="false" rows="15" aria-describedby="instructions">{
-  &quot;expected&quot;: [
-    &quot;Proposta.pdf&quot;,
-    &quot;Planilha.csv&quot;,
-    &quot;Anexo.pdf&quot;
-  ],
-  &quot;files&quot;: [
-    {
-      &quot;name&quot;: &quot;proposta.pdf&quot;,
-      &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
-    },
-    {
-      &quot;name&quot;: &quot;Planilha.csv&quot;,
-      &quot;sha256&quot;: &quot;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&quot;
-    },
-    {
-      &quot;name&quot;: &quot;Espelho.pdf&quot;,
-      &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
-    }
-  ]
-}</textarea>
-      <div class="buttons"><button type="button" id="run">Conferir anexos</button><button type="button" id="reset" class="quiet">Restaurar exemplo</button></div>
-    </section>
-    <section class="panel output" aria-labelledby="output-title">
-      <div class="top"><h2 id="output-title">Resultado</h2><button type="button" id="download" class="quiet" disabled>Exportar JSON</button></div>
-      <p role="status" id="status">Execute a ferramenta para conferir os dados.</p>
-      <dl id="stats"></dl><div id="result"></div>
-    </section>
-  </div>
-  <footer>Exemplo fictício. O processamento acontece neste navegador. Conferências técnicas apoiam o trabalho da equipe responsável.</footer>
-</main>
+<body data-layout="anexos">
+  <a class="skip" href="#entry-form">Ir para a ferramenta</a>
+  <main data-layout-profile="conferidor-anexos-proposta" data-layout="anexos">
+    <header class="task-header" data-region="task-header">
+      <div class="masthead">
+        <a href="https://lofranotecnologia.com.br/projetos" class="brand" aria-label="Projetos da LOFRANO">LOFRANO</a>
+        <span class="product-sector">Licitações e compras</span>
+      </div>
+      <div class="task-title">
+        <h1>Conferidor de Anexos de Proposta</h1>
+        <p>Compare os arquivos preparados com a lista esperada e confira ausências, extras e duplicatas por conteúdo.</p>
+      </div>
+    </header>
+    <div class="workarea">
+      <section class="entry-panel" data-region="input" data-task-editor="anexos" aria-labelledby="entry-title">
+        <div class="module-heading">
+          <h2 id="entry-title">Anexos da proposta</h2>
+          <button type="button" id="reset" class="quiet reset">Restaurar exemplo</button>
+        </div>
+        <form id="entry-form" class="editor-form" aria-labelledby="entry-title" tabindex="-1">
+          <div id="fields"></div>
+        </form>
+        <div class="entry-actions">
+          <button type="button" id="run" class="primary">Conferir anexos</button>
+        </div>
+      </section>
+      <section class="result-panel" data-region="result" aria-labelledby="output-title">
+        <div class="result-header">
+          <div class="module-heading">
+            <h2 id="output-title">Conferência de arquivos</h2>
+            <button type="button" id="download" class="quiet export" disabled>Baixar relatório</button>
+          </div>
+          <p role="status" id="status">Veja ausências, arquivos extras e cópias com o mesmo conteúdo.</p>
+        </div>
+        <dl id="stats" aria-label="Resumo de conferência"></dl>
+        <div id="insights" data-region="insights" data-task-insights="anexos"></div>
+        <div id="result" data-region="result-details" tabindex="0" role="region" aria-labelledby="output-title"></div>
+      </section>
+    </div>
+    <footer class="task-footer">Exemplo fictício. O processamento acontece neste navegador.</footer>
+  </main>
+  <template id="sample-data">{"expected":["Proposta.pdf","Planilha.csv","Anexo.pdf"],"files":[{"name":"proposta.pdf","sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},{"name":"Planilha.csv","sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},{"name":"Espelho.pdf","sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]}</template>
+  <template id="field-config">[{"key":"expected","label":"Lista de anexos exigidos","singular":"documento","fields":[{"key":"","label":"Nome do arquivo","kind":"text","optional":false}],"maximum":100},{"key":"files","label":"Selecionar arquivos","kind":"files","optional":false}]</template>
 </body>
 </html>
