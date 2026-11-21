@@ -6,7 +6,7 @@ Compare os arquivos preparados com a lista esperada e confira ausências, extras
 
 Abra a [demonstração](https://martinlofranodeoliveira.github.io/conferidor-anexos-proposta/). Para uso local, execute `python3 -m http.server 8000` no diretório e abra `http://localhost:8000`.
 
-Preencha a lista de documentos esperados. Selecione os arquivos no dispositivo para calcular SHA-256 no navegador ou preencha a lista de arquivos manualmente. Clique em **Conferir anexos** para identificar ausências, extras e cópias. O relatório está disponível em CSV.
+Preencha a lista de documentos esperados. Selecione os arquivos no dispositivo para calcular SHA-256 no navegador. Clique em **Conferir anexos** para identificar ausências, extras e cópias. O relatório está disponível em CSV.
 
 ## Contrato público
 
